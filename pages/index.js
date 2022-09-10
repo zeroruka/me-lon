@@ -30,5 +30,5 @@ export default function Home() {
         />
       </div>
     </div>
-  );
+  ); //wtf is this shit
 }
