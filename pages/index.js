@@ -1,28 +1,38 @@
 import Image from "next/image";
+import React, { useState } from "react";
 import melon from "../public/images/melon.gif";
-let x = 0;
 
+let x = 0;
 export default function Home() {
+  const [effect, setEffect] = useState(false);
   return (
-    <div className="flex flex-col items-center justify-center w-full h-screen space-y-8 lg-flex-row">
+    <div className=" overflow-hidden flex flex-col items-center justify-center w-full h-screen space-y-8 lg-flex-row">
       <button
-        className="rounded-full text-white bg-lime-500 w-20 h-18 hover:bg-red-400
-        transition-all"
+        className={`${
+          effect && "animate-button"
+        } rounded-full text-white bg-lime-500 w-20 h-18 hover:bg-red-400
+        transition-all`}
         onClick={() => {
           if (x == 0) {
             x++;
             document
               .getElementById("gif")
               .classList.add("hover:translate-x-[1000px]");
-          } else if (x > 0 && x < 5) {
+            document.getElementById("melon").classList.add("scale-x-[1.2]");
+          } else if (x == 1) {
             x++;
+            document.getElementById("melon").classList.remove("scale-x-[1.2]");
+            document.getElementById("melon").classList.add("scale-x-[1.6]");
             document
               .getElementById("gif")
-              .classList.add("hover:translate-x-[1000px]");
+              .classList.remove("hover:translate-x-[1000px]");
             document
               .getElementById("gif")
               .classList.toggle("hover:translate-x-[-1000px]");
-          } else if (x == 5) {
+          } else if (x == 2) {
+            document.getElementById("melon").classList.remove("scale-x-[1.6]");
+            document.getElementById("melon").classList.toggle("scale-x-[2.5]");
+            document.getElementById("melon").classList.add("text-red-300");
             document.getElementById("gif").classList.toggle("scale-x-[2]");
             document
               .getElementById("gif")
@@ -31,15 +41,20 @@ export default function Home() {
               .getElementById("gif")
               .classList.remove("hover:translate-x-[-1000px]");
             x++;
-          } else if (x > 5) {
+          } else if (x > 2) {
+            document.getElementById("melon").classList.remove("text-red-300");
+            document.getElementById("melon").classList.toggle("scale-x-[2.5]");
             document.getElementById("gif").classList.toggle("scale-x-[2]");
             x = 0;
           }
+          setEffect(true);
         }}
+        onAnimationEnd={() => setEffect(false)}
       >
-        ??????
+        ???{x}???
       </button>
       <p1
+        id="melon"
         className="text-6xl text-white text-center group
         transition-all hover:text-9xl hover:text-green-400 hover:drop-shadow-md tranform-gpu"
       >
@@ -55,7 +70,7 @@ export default function Home() {
       <div
         id="gif"
         className="relative scale-90 overflow-hidden transition-all
-      hover:drop-shadow-2xl hover:invert hover:rotate-[1800deg] duration-[5s] transform-gpu"
+      hover:invert hover:rotate-[1800deg] duration-[5s] transform-gpu"
       >
         <Image
           objectFit="cover"
@@ -66,5 +81,5 @@ export default function Home() {
         />
       </div>
     </div>
-  ); //wtf is this shit
+  ); //wtf is this lol
 }

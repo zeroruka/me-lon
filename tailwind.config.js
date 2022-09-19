@@ -5,7 +5,17 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      keyframes: {
+        button: {
+          "0%, 100%": { transform: "rotate(-5deg)" },
+          "50%": { transform: "rotate(5deg)" },
+        },
+      },
+      animation: {
+        button: "button 200ms ease-in-out",
+      },
+    },
   },
   plugins: [],
 };
